@@ -2,6 +2,7 @@ import os
 
 from flask import Flask
 
+from app import database
 from app.config import Config
 
 
@@ -19,5 +20,7 @@ def create_app(config_class=Config):
 
     # Keep JSON field order predictable in responses.
     app.json.sort_keys = app.config["JSON_SORT_KEYS"]
+
+    database.init_app(app)
 
     return app
