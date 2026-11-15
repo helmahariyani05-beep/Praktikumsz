@@ -9,6 +9,7 @@ dan Integritas Data):
 """
 
 import sqlite3
+from datetime import datetime
 
 import click
 from flask import current_app, g
@@ -35,6 +36,18 @@ CREATE TABLE IF NOT EXISTS loan (
 
 CREATE INDEX IF NOT EXISTS idx_loan_student_id ON loan (student_id);
 """
+
+
+def _convert_timestamp(value):
+    """Konversi kolom TIMESTAMP menjadi `datetime`.
+
+    Konverter eksplisit dipakai karena konverter default `sqlite3` untuk
+    TIMESTAMP sudah deprecated sejak Python 3.12.
+    """
+    return datetime.fromisoformat(value.decode())
+
+
+sqlite3.register_converter("TIMESTAMP", _convert_timestamp)
 
 
 def get_db():
