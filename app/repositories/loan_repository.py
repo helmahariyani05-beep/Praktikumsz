@@ -36,15 +36,26 @@ def get_by_id(db, loan_id):
     ).fetchone()
 
 
-def update_status(db, loan_id, status):
+def update_status(db, loan_id, status, expected_status=None):
     """Perbarui status transaksi.
 
-    Return: `True` jika satu baris terupdate, `False` jika id tidak ditemukan.
+    Jika `expected_status` diberikan, update hanya dilakukan saat status saat
+    ini sama dengan nilai tersebut. Ini mencegah pengembalian ganda ketika ada
+    dua permintaan bersamaan.
+
+    Return: `True` jika satu baris terupdate, `False` jika tidak ada baris yang
+    cocok.
     """
-    cursor = db.execute(
-        "UPDATE loan SET status = ? WHERE id = ?",
-        (status, loan_id),
-    )
+    if expected_status is None:
+        cursor = db.execute(
+            "UPDATE loan SET status = ? WHERE id = ?",
+            (status, loan_id),
+        )
+    else:
+        cursor = db.execute(
+            "UPDATE loan SET status = ? WHERE id = ? AND status = ?",
+            (status, loan_id, expected_status),
+        )
     return cursor.rowcount == 1
 
 
