@@ -213,3 +213,45 @@ def test_history_only_contains_requested_student(client, make_item, make_loan):
     assert len(history) == 1
     assert history[0]["student_id"] == "20240001"
     assert history[0]["item_id"] == first_item["id"]
+
+
+# --- 7. Final Verification ------------------------------------------------
+
+
+def test_stock_stays_consistent_across_multiple_transactions(
+    client, make_item, make_loan, get_stock
+):
+    """Stok selalu sama dengan total dikurangi pinjaman yang masih aktif."""
+    total_stock = 10
+    item = make_item(name="Multimeter", total_stock=total_stock)
+    active_quantity = 0
+
+    def borrow(student_id, quantity):
+        nonlocal active_quantity
+        loan = make_loan(
+            student_id=student_id,
+            item_id=item["id"],
+            quantity=quantity,
+        )
+        active_quantity += quantity
+        assert get_stock(item["id"]) == total_stock - active_quantity
+        return loan
+
+    def return_loan(loan, quantity):
+        nonlocal active_quantity
+        response = client.put(f"/loans/{loan['id']}/return")
+        assert response.status_code == 200
+        active_quantity -= quantity
+        assert get_stock(item["id"]) == total_stock - active_quantity
+
+    first = borrow("20240001", 3)
+    second = borrow("20240002", 2)
+    return_loan(first, 3)
+    third = borrow("20240003", 4)
+    return_loan(second, 2)
+    return_loan(third, 4)
+
+    assert active_quantity == 0
+    assert get_stock(item["id"]) == total_stock
+    history = client.get("/loans/student/20240001").get_json()
+    assert history[0]["status"] == "RETURNED"

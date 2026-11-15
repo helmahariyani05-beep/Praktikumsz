@@ -8,116 +8,116 @@ Review berfokus pada kesesuaian fungsi, aturan bisnis, integritas stok, konsiste
 
 ## 2. Requirement Compliance
 
-- [ ] Implementasi menggunakan Python 3.x.
-- [ ] Backend menggunakan Flask.
-- [ ] Database menggunakan SQLite.
-- [ ] Pertukaran data API menggunakan JSON.
-- [ ] Seluruh endpoint yang ditentukan tersedia:
-  - [ ] `GET /items`
-  - [ ] `POST /items`
-  - [ ] `POST /loans`
-  - [ ] `PUT /loans/{id}/return`
-  - [ ] `GET /loans/student/{student_id}`
-- [ ] Nama field dan status transaksi sesuai spesifikasi.
+- [x] Implementasi menggunakan Python 3.x.
+- [x] Backend menggunakan Flask.
+- [x] Database menggunakan SQLite.
+- [x] Pertukaran data API menggunakan JSON.
+- [x] Seluruh endpoint yang ditentukan tersedia:
+  - [x] `GET /items`
+  - [x] `POST /items`
+  - [x] `POST /loans`
+  - [x] `PUT /loans/{id}/return`
+  - [x] `GET /loans/student/{student_id}`
+- [x] Nama field dan status transaksi sesuai spesifikasi.
 
 ## 3. Data Model dan Database
 
-- [ ] Tabel `Item` memiliki `id`, `name`, `total_stock`, dan `available_stock`.
-- [ ] Tabel `Loan` memiliki `id`, `student_id`, `item_id`, `quantity`, `status`, dan `created_at`.
-- [ ] Primary key dan foreign key didefinisikan dengan benar.
-- [ ] Foreign key SQLite diaktifkan pada setiap koneksi.
-- [ ] Stok tidak menerima nilai negatif.
-- [ ] `quantity` transaksi harus lebih besar dari nol.
-- [ ] Status transaksi hanya menggunakan nilai yang diizinkan.
-- [ ] `available_stock` tidak melebihi `total_stock`.
-- [ ] Query yang menerima input menggunakan parameterized query.
-- [ ] Koneksi database ditutup atau dikelola dengan benar.
+- [x] Tabel `Item` memiliki `id`, `name`, `total_stock`, dan `available_stock`.
+- [x] Tabel `Loan` memiliki `id`, `student_id`, `item_id`, `quantity`, `status`, dan `created_at`.
+- [x] Primary key dan foreign key didefinisikan dengan benar.
+- [x] Foreign key SQLite diaktifkan pada setiap koneksi.
+- [x] Stok tidak menerima nilai negatif.
+- [x] `quantity` transaksi harus lebih besar dari nol.
+- [x] Status transaksi hanya menggunakan nilai yang diizinkan.
+- [x] `available_stock` tidak melebihi `total_stock`.
+- [x] Query yang menerima input menggunakan parameterized query.
+- [x] Koneksi database ditutup atau dikelola dengan benar.
 
 ## 4. Business Logic
 
 ### 4.1 Penambahan Item
 
-- [ ] Field `name` wajib diisi.
-- [ ] `total_stock` divalidasi sebagai bilangan bulat non-negatif.
-- [ ] `available_stock` otomatis diinisialisasi sama dengan `total_stock`.
-- [ ] Data tidak tersimpan jika validasi gagal.
+- [x] Field `name` wajib diisi.
+- [x] `total_stock` divalidasi sebagai bilangan bulat non-negatif.
+- [x] `available_stock` otomatis diinisialisasi sama dengan `total_stock`.
+- [x] Data tidak tersimpan jika validasi gagal.
 
 ### 4.2 Peminjaman
 
-- [ ] `student_id`, `item_id`, dan `quantity` divalidasi.
-- [ ] `quantity` harus berupa bilangan bulat positif.
-- [ ] Sistem memeriksa keberadaan item.
-- [ ] Sistem menolak peminjaman jika stok tidak mencukupi.
-- [ ] Sistem mengembalikan `404 Not Found` jika item tidak ditemukan.
-- [ ] Sistem mengembalikan `400 Bad Request` jika stok tidak mencukupi.
-- [ ] Sistem mengembalikan `201 Created` jika peminjaman berhasil.
-- [ ] Stok berkurang tepat sesuai quantity.
-- [ ] Status awal transaksi adalah `BORROWED`.
-- [ ] Pembuatan transaksi dan pengurangan stok dilakukan secara atomik.
-- [ ] Kegagalan salah satu operasi menyebabkan rollback.
+- [x] `student_id`, `item_id`, dan `quantity` divalidasi.
+- [x] `quantity` harus berupa bilangan bulat positif.
+- [x] Sistem memeriksa keberadaan item.
+- [x] Sistem menolak peminjaman jika stok tidak mencukupi.
+- [x] Sistem mengembalikan `404 Not Found` jika item tidak ditemukan.
+- [x] Sistem mengembalikan `400 Bad Request` jika stok tidak mencukupi.
+- [x] Sistem mengembalikan `201 Created` jika peminjaman berhasil.
+- [x] Stok berkurang tepat sesuai quantity.
+- [x] Status awal transaksi adalah `BORROWED`.
+- [x] Pembuatan transaksi dan pengurangan stok dilakukan secara atomik.
+- [x] Kegagalan salah satu operasi menyebabkan rollback.
 
 ### 4.3 Pengembalian
 
-- [ ] Sistem memeriksa keberadaan transaksi.
-- [ ] Sistem menolak transaksi yang sudah berstatus `RETURNED`.
-- [ ] Sistem mengembalikan `400 Bad Request` untuk pengembalian ulang.
-- [ ] Sistem mengembalikan `404 Not Found` jika transaksi tidak ditemukan.
-- [ ] Status transaksi berubah menjadi `RETURNED`.
-- [ ] Stok bertambah sesuai quantity transaksi.
-- [ ] Pembaruan status dan pemulihan stok dilakukan secara atomik.
-- [ ] Pengembalian ulang tidak menyebabkan stok bertambah dua kali.
+- [x] Sistem memeriksa keberadaan transaksi.
+- [x] Sistem menolak transaksi yang sudah berstatus `RETURNED`.
+- [x] Sistem mengembalikan `400 Bad Request` untuk pengembalian ulang.
+- [x] Sistem mengembalikan `404 Not Found` jika transaksi tidak ditemukan.
+- [x] Status transaksi berubah menjadi `RETURNED`.
+- [x] Stok bertambah sesuai quantity transaksi.
+- [x] Pembaruan status dan pemulihan stok dilakukan secara atomik.
+- [x] Pengembalian ulang tidak menyebabkan stok bertambah dua kali.
 
 ### 4.4 Riwayat Peminjaman
 
-- [ ] Hasil pencarian difilter berdasarkan `student_id`.
-- [ ] Data mahasiswa lain tidak ikut ditampilkan.
-- [ ] Jika tidak ada transaksi, API mengembalikan daftar kosong secara konsisten.
+- [x] Hasil pencarian difilter berdasarkan `student_id`.
+- [x] Data mahasiswa lain tidak ikut ditampilkan.
+- [x] Jika tidak ada transaksi, API mengembalikan daftar kosong secara konsisten.
 
 ## 5. API Contract dan HTTP Response
 
-- [ ] Endpoint menggunakan HTTP method dan path yang benar.
-- [ ] Request body menggunakan JSON untuk endpoint yang memerlukannya.
-- [ ] Response menggunakan JSON dengan struktur konsisten.
-- [ ] HTTP status code sesuai kondisi.
-- [ ] Error response memberikan pesan yang jelas.
-- [ ] Error tidak membocorkan SQL, stack trace, atau informasi internal.
-- [ ] Respons GET `/items` menampilkan stok terkini dari database.
-- [ ] Tidak ada nilai stok yang hanya diperbarui di memori tanpa disimpan ke database.
+- [x] Endpoint menggunakan HTTP method dan path yang benar.
+- [x] Request body menggunakan JSON untuk endpoint yang memerlukannya.
+- [x] Response menggunakan JSON dengan struktur konsisten.
+- [x] HTTP status code sesuai kondisi.
+- [x] Error response memberikan pesan yang jelas.
+- [x] Error tidak membocorkan SQL, stack trace, atau informasi internal.
+- [x] Respons GET `/items` menampilkan stok terkini dari database.
+- [x] Tidak ada nilai stok yang hanya diperbarui di memori tanpa disimpan ke database.
 
 ## 6. Code Quality
 
-- [ ] Route/controller tidak menampung seluruh business logic.
-- [ ] Aturan bisnis ditempatkan pada service layer.
-- [ ] Operasi query ditempatkan pada repository/data access layer.
-- [ ] Fungsi memiliki tanggung jawab yang jelas.
-- [ ] Nama variabel, fungsi, dan modul mudah dipahami.
-- [ ] Tidak ada duplikasi logika validasi atau transaksi yang tidak perlu.
-- [ ] Tidak ada hard-coded path database yang menyulitkan konfigurasi.
-- [ ] Tidak ada kode mati, debug print, atau TODO yang tidak dijelaskan.
-- [ ] Dependency tercatat di `requirements.txt`.
-- [ ] Aplikasi dapat dijalankan mengikuti dokumentasi.
+- [x] Route/controller tidak menampung seluruh business logic.
+- [x] Aturan bisnis ditempatkan pada service layer.
+- [x] Operasi query ditempatkan pada repository/data access layer.
+- [x] Fungsi memiliki tanggung jawab yang jelas.
+- [x] Nama variabel, fungsi, dan modul mudah dipahami.
+- [x] Tidak ada duplikasi logika validasi atau transaksi yang tidak perlu.
+- [x] Tidak ada hard-coded path database yang menyulitkan konfigurasi.
+- [x] Tidak ada kode mati, debug print, atau TODO yang tidak dijelaskan.
+- [x] Dependency tercatat di `requirements.txt`.
+- [x] Aplikasi dapat dijalankan mengikuti dokumentasi.
 
 ## 7. Security dan Reliability
 
-- [ ] Input pengguna divalidasi di sisi backend.
-- [ ] SQL injection dicegah dengan parameterized query.
-- [ ] Error internal tidak dikirimkan secara mentah kepada client.
-- [ ] Transaksi database digunakan untuk menjaga konsistensi stok.
-- [ ] Operasi pengurangan stok bersyarat agar stok tidak menjadi negatif.
-- [ ] Pengembalian ganda dicegah melalui pemeriksaan status dalam transaksi.
-- [ ] Tidak ada kredensial atau secret yang disimpan di source code.
+- [x] Input pengguna divalidasi di sisi backend.
+- [x] SQL injection dicegah dengan parameterized query.
+- [x] Error internal tidak dikirimkan secara mentah kepada client.
+- [x] Transaksi database digunakan untuk menjaga konsistensi stok.
+- [x] Operasi pengurangan stok bersyarat agar stok tidak menjadi negatif.
+- [x] Pengembalian ganda dicegah melalui pemeriksaan status dalam transaksi.
+- [x] Tidak ada kredensial atau secret yang disimpan di source code.
 
 Catatan: autentikasi dan otorisasi belum ditetapkan dalam requirement/PRD. Ketiadaannya tidak otomatis dianggap sebagai kegagalan implementasi terhadap ruang lingkup saat ini, tetapi perlu dicatat sebagai batasan sebelum sistem digunakan di lingkungan nyata.
 
 ## 8. Test Evidence
 
-- [ ] Ada bukti pengujian untuk setiap endpoint.
-- [ ] Ada pengujian input valid dan tidak valid.
-- [ ] Ada pengujian stok tidak mencukupi.
-- [ ] Ada pengujian item dan transaksi yang tidak ditemukan.
-- [ ] Ada pengujian pengembalian ganda.
-- [ ] Ada pengujian bahwa stok tetap konsisten ketika transaksi gagal.
-- [ ] Hasil pengujian dapat diulang dengan langkah yang jelas.
+- [x] Ada bukti pengujian untuk setiap endpoint.
+- [x] Ada pengujian input valid dan tidak valid.
+- [x] Ada pengujian stok tidak mencukupi.
+- [x] Ada pengujian item dan transaksi yang tidak ditemukan.
+- [x] Ada pengujian pengembalian ganda.
+- [x] Ada pengujian bahwa stok tetap konsisten ketika transaksi gagal.
+- [x] Hasil pengujian dapat diulang dengan langkah yang jelas.
 
 ## 9. Review Findings
 
@@ -125,7 +125,10 @@ Catat temuan review dengan format berikut:
 
 | ID | File/Bagian | Temuan | Tingkat | Rekomendasi | Status |
 |---|---|---|---|---|---|
-| CR-01 | - | - | - | - | Open |
+| CR-01 | `app/database.py` | Konverter timestamp default SQLite memunculkan `DeprecationWarning` pada Python 3.12+ | Low | Daftarkan konverter `TIMESTAMP` eksplisit | Closed |
+| CR-02 | `app/routes/__init__.py` | Error 500 belum dikembalikan dalam format JSON | Low | Tambahkan handler JSON generik tanpa membocorkan detail internal | Closed |
+| CR-03 | `README.md` | Dokumentasi instalasi dan penggunaan belum tersedia | Low | Tambahkan README berisi instalasi, konfigurasi, endpoint, dan pengujian | Closed |
+| CR-04 | `tests/.gitkeep` | Placeholder direktori tidak lagi diperlukan | Low | Hapus file | Closed |
 
 Gunakan tingkat prioritas:
 
@@ -138,11 +141,11 @@ Gunakan tingkat prioritas:
 
 Isi setelah proses review:
 
-- **Status:** Pending / Approved / Approved with Changes / Rejected
-- **Jumlah temuan Critical:**
-- **Jumlah temuan High:**
-- **Jumlah temuan Medium:**
-- **Jumlah temuan Low:**
-- **Catatan reviewer:**
+- **Status:** Approved
+- **Jumlah temuan Critical:** 0
+- **Jumlah temuan High:** 0
+- **Jumlah temuan Medium:** 0
+- **Jumlah temuan Low:** 4 (seluruhnya Closed)
+- **Catatan reviewer:** Seluruh alur utama berjalan. 34 automated test lulus dan 29 pemeriksaan HTTP terhadap server yang berjalan lulus. Stok konsisten setelah beberapa transaksi pinjam/kembali, pengembalian ganda tidak menambah stok, dan kegagalan transaksi tidak mengubah stok. Autentikasi/otorisasi tetap di luar ruang lingkup requirement saat ini.
 
 Kode hanya layak disetujui apabila seluruh alur utama berjalan, acceptance criteria terpenuhi, dan tidak ada temuan Critical atau High yang belum diselesaikan.
